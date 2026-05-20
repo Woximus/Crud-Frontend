@@ -16,6 +16,7 @@ Aplikacja webowa w **Angularze** (Single Page Application) do zarządzania praco
    ```bash
    npm install
 3. Uruchom serwer developerski:
+   ```bash
    ng serve -o
 
 Aplikacja automatycznie otworzy się w przeglądarce pod adresem http://localhost:4200.
