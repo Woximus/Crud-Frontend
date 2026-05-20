@@ -1,0 +1,79 @@
+<div class="d-flex flex-column min-vh-100 bg-light">
+
+  <main class="container flex-grow-1 mt-5">
+    
+    <div class="d-flex justify-content-end mb-3">
+      <select class="form-select w-auto shadow-sm border-0" [ngModel]="wybranyJezyk" (ngModelChange)="zmienJezyk($event)">
+        <option value="pl">PL</option>
+        <option value="en">EN</option>
+      </select>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="card shadow-lg border-0 rounded-4 animate-fade">
+          <div class="card-body p-5">
+            
+            <div *ngIf="errorMsg" class="alert alert-danger p-2 small mb-3 border-start border-4 border-danger shadow-sm text-start">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ errorMsg }}
+            </div>
+            <div *ngIf="successMsg" class="alert alert-success p-2 small mb-3 border-start border-4 border-success shadow-sm text-start">
+              <i class="bi bi-check-circle-fill me-2"></i>{{ successMsg }}
+            </div>
+
+            <ng-container *ngIf="krokResetu === 0">
+              <h3 class="text-center mb-4 text-primary fw-bold">{{ teksty['app.title'] }}</h3>
+              <div class="mb-3">
+                <input type="text" class="form-control bg-light" placeholder="Login" [(ngModel)]="daneLogowania.login">
+              </div>
+              <div class="mb-3">
+                <input type="password" class="form-control bg-light" [placeholder]="teksty['login.password']" [(ngModel)]="daneLogowania.password">
+              </div>
+              <button class="btn btn-primary w-100 mb-3 fw-bold shadow-sm py-2" (click)="zaloguj()">{{ teksty['login.button'] }}</button>
+              <div class="text-center">
+                <a href="javascript:void(0)" class="text-muted text-decoration-none small" (click)="krokResetu = 1">{{ teksty['login.forgot'] }}</a>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="krokResetu === 1">
+              <h4 class="text-center mb-3 fw-bold">{{ teksty['login.reset.title'] }}</h4>
+              <p class="text-muted text-center small mb-4">{{ teksty['login.reset.desc'] }}</p>
+              <input type="text" class="form-control mb-3 bg-light" [placeholder]="teksty['login.reset.input']" [(ngModel)]="resetLogin">
+              <button class="btn btn-warning w-100 mb-2 fw-bold text-white shadow-sm py-2" (click)="poprosOReset()">{{ teksty['login.reset.btn'] }}</button>
+              <button class="btn btn-light w-100 border py-2 text-muted fw-bold" (click)="krokResetu = 0">{{ teksty['login.reset.back'] }}</button>
+            </ng-container>
+
+            <ng-container *ngIf="krokResetu === 2">
+              <h4 class="text-center mb-3 text-success fw-bold">{{ teksty['login.newpass.title'] }}</h4>
+              <p class="text-muted small text-center mb-4">{{ teksty['login.newpass.desc'] }}</p>
+              
+              <div class="mb-3 text-start">
+                <label class="small fw-bold text-muted ms-1 mb-1">{{ teksty['login.newpass.phone'] || 'Numer telefonu z profilu' }}</label>
+                <input type="text" class="form-control bg-light" name="reset_phone_check" autocomplete="off" [(ngModel)]="telefonWeryfikacyjny" placeholder="Weryfikacja tożsamości">
+              </div>
+
+              <div class="mb-2">
+                <input type="password" class="form-control bg-light" name="reset_new_pass_1" autocomplete="new-password" [placeholder]="teksty['login.newpass.input1']" [(ngModel)]="noweHaslo">
+              </div>
+              <div class="mb-4">
+                <input type="password" class="form-control bg-light" name="reset_new_pass_2" autocomplete="new-password" [placeholder]="teksty['login.newpass.input2']" [(ngModel)]="powtorzHaslo">
+              </div>
+              
+              <button class="btn btn-success w-100 fw-bold shadow-sm py-2" (click)="potwierdzNoweHaslo()">{{ teksty['login.newpass.btn'] }}</button>
+              
+              <div class="text-center mt-3">
+                <a href="javascript:void(0)" class="text-muted text-decoration-none small" (click)="krokResetu = 0">{{ teksty['login.newpass.back'] }}</a>
+              </div>
+            </ng-container>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center text-muted small fw-medium py-4 mt-auto border-top bg-white">
+    {{ teksty['app.footer'] }}
+  </footer>
+
+</div>

@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center align-items-center min-vh-100 bg-light">
+  <div class="card shadow-lg border-0 rounded-4 animate-fade" style="width: 100%; max-width: 500px;">
+    
+    <div class="bg-dark text-white p-4 text-center rounded-top-4">
+      <i class="bi bi-hdd-network-fill fs-1 text-primary mb-2 d-block"></i>
+      <h3 class="fw-bold mb-0">Inicjalizacja Systemu</h3>
+      <p class="small text-muted mb-0 mt-1">Utwórz konto głównego administratora</p>
+    </div>
+
+    <div class="card-body p-5">
+      <div *ngIf="errorMsg" class="alert alert-danger py-2 px-3 small border-start border-4 border-danger shadow-sm">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ errorMsg }}
+      </div>
+      <div *ngIf="successMsg" class="alert alert-success py-2 px-3 small border-start border-4 border-success shadow-sm">
+        <i class="bi bi-check-circle-fill me-2"></i> {{ successMsg }}
+      </div>
+
+      <div class="mb-3">
+        <label for="init_login" class="form-label small fw-bold text-muted">Login Administratora</label>
+        <input id="init_login" type="text" class="form-control bg-light" [(ngModel)]="form.login" placeholder="Np. admin">
+      </div>
+
+      <div class="mb-3">
+        <label for="init_email" class="form-label small fw-bold text-muted">Adres Email</label>
+        <input id="init_email" type="email" class="form-control bg-light" [(ngModel)]="form.email" placeholder="admin@firma.pl">
+      </div>
+
+      <div class="mb-3">
+        <label for="init_pass" class="form-label small fw-bold text-muted">Silne Hasło</label>
+        <input id="init_pass" type="password" class="form-control bg-light" [(ngModel)]="form.password" placeholder="Min. 12 znaków">
+      </div>
+
+      <div class="mb-4">
+        <label for="init_pass_rep" class="form-label small fw-bold text-muted">Powtórz Hasło</label>
+        <input id="init_pass_rep" type="password" class="form-control bg-light" [(ngModel)]="form.passwordRepeat" placeholder="Potwierdź hasło">
+      </div>
+
+      <button class="btn btn-primary w-100 fw-bold py-2 shadow-sm" (click)="zainicjujSystem()">
+        <i class="bi bi-shield-lock-fill me-2"></i> ZAINICJUJ SYSTEM
+      </button>
+
+      <div class="mt-4 p-3 bg-light border rounded small text-muted">
+        <strong>Wymagania dla hasła:</strong>
+        <ul class="mb-0 ps-3 mt-1">
+          <li>Min. 12 znaków</li>
+          <li>Małe i wielkie litery, cyfra, znak specjalny</li>
+          <li>Nie może zawierać loginu ani adresu email</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

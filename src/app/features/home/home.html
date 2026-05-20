@@ -1,0 +1,90 @@
+<div class="d-flex flex-column min-vh-100 bg-light">
+
+  <header class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm px-3">
+    <div class="container-fluid">
+      
+      <div class="d-flex align-items-center">
+        <button class="btn btn-dark me-2" aria-label="Menu" (click)="pokazMenu = true">
+          <i class="bi bi-list fs-4"></i>
+        </button>
+        <a class="navbar-brand d-flex align-items-center gap-2" (click)="router.navigate(['/home'])" style="cursor: pointer;">
+          <i class="bi bi-house-door-fill text-primary"></i>
+          <span class="fw-bold tracking-wide">HOME</span>
+        </a>
+        
+        <button class="btn btn-link text-light text-decoration-none fw-bold ms-3" 
+                (click)="router.navigate(['/users'])">
+          {{ teksty['dash.title'] || 'Użytkownicy' }}
+        </button>
+      </div>
+
+      <div class="d-flex align-items-center gap-3">
+        <span class="text-light small d-none d-md-block">
+          {{ teksty['dash.welcome'] }} <strong class="text-info">{{ mojeDane.login }}</strong>
+        </span>
+        
+        <select class="form-select form-select-sm w-auto bg-secondary text-white border-0 shadow-sm" 
+                [ngModel]="wybranyJezyk" (ngModelChange)="zmienJezyk($event)">
+          <option value="pl">PL</option>
+          <option value="en">EN</option>
+        </select>
+
+        <button class="btn btn-danger btn-sm px-3" (click)="wyloguj()">
+          <i class="bi bi-box-arrow-right me-1"></i> {{ teksty['dash.logout'] || 'Wyloguj' }}
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container my-5 flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+    <div class="card shadow-lg border-0 rounded-4 w-100 overflow-hidden animate-fade" style="max-width: 850px;">
+      <div class="bg-primary bg-gradient text-white p-5 text-center">
+        <h1 class="display-4 fw-bolder mb-0">{{ teksty['dash.welcome'] }}</h1>
+        <p class="fs-4 mb-0 mt-2 opacity-75 fw-light">
+          {{ mojeDane.name }} {{ mojeDane.surname }}
+        </p>
+      </div>
+      <div class="card-body p-5 text-center bg-white">
+        <div class="p-5 border border-2 border-dashed rounded-4 text-secondary bg-light" 
+             style="transition: all 0.3s;" 
+             onmouseover="this.classList.add('shadow-sm', 'border-primary')" 
+             onmouseout="this.classList.remove('shadow-sm', 'border-primary')">
+          <i class="bi bi-puzzle fs-1 text-primary opacity-50 mb-3 d-block"></i>
+          <h4 class="fw-light mb-0 text-muted">
+            [ {{ teksty['home.placeholder'] || 'Miejsce na przyszłe moduły systemowe' }} ]
+          </h4>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-white border-top py-4 mt-auto">
+    <div class="container text-center text-muted small fw-medium">
+      {{ teksty['app.footer'] || '© 2026 strona utworzona przez Wiktora Włodarczyka' }}
+    </div>
+  </footer>
+
+</div>
+
+<div class="offcanvas offcanvas-start shadow-lg" tabindex="-1" [class.show]="pokazMenu" [style.visibility]="pokazMenu ? 'visible' : 'hidden'" style="transition: transform 0.3s ease-in-out;" [style.transform]="pokazMenu ? 'translateX(0)' : 'translateX(-100%)'">
+  <div class="offcanvas-header bg-dark text-white">
+    <h5 class="offcanvas-title fw-bold">
+      <i class="bi bi-list text-primary me-2"></i> Menu
+    </h5>
+    <button type="button" class="btn-close btn-close-white" (click)="pokazMenu = false" aria-label="Zamknij"></button>
+  </div>
+  <div class="offcanvas-body p-0 bg-light">
+    <div class="list-group list-group-flush mt-2">
+      <button class="list-group-item list-group-item-action py-3 fw-bold bg-transparent border-0" 
+              (click)="router.navigate(['/home']); pokazMenu = false">
+        <i class="bi bi-house-door-fill text-primary me-3 fs-5 align-middle"></i> HOME
+      </button>
+      
+      <button class="list-group-item list-group-item-action py-3 fw-bold bg-transparent border-0" 
+              (click)="router.navigate(['/users']); pokazMenu = false">
+        <i class="bi bi-people-fill text-info me-3 fs-5 align-middle"></i> {{ teksty['dash.title'] || 'Użytkownicy' }}
+      </button>
+    </div>
+  </div>
+</div>
+<div class="offcanvas-backdrop fade show" *ngIf="pokazMenu" (click)="pokazMenu = false"></div>
